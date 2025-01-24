@@ -1,3 +1,4 @@
+import { UUID } from 'crypto';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,7 +10,7 @@ import {
 @Entity('users') // Table name in PostgreSQL
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: UUID;
 
   @Column({ type: 'varchar', length: 255 })
   name: string;
