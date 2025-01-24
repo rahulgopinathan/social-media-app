@@ -6,19 +6,16 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('users') // Table name in PostgreSQL
-export class User {
+@Entity('followers') // Table name in PostgreSQL
+export class Follower {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  name: string;
+  @Column({ type: 'uuid' })
+  followerId: string;
 
-  @Column({ type: 'varchar', unique: true })
-  email: string;
-
-  @Column({ type: 'varchar' })
-  password: string;
+  @Column({ type: 'uuid' })
+  followingId: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
