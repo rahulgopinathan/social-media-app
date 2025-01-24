@@ -1,7 +1,8 @@
+/users/erssu.service.ts;
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
+import { User } from './users.entity';
 
 @Injectable()
 export class UsersService {
@@ -10,24 +11,24 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async createUser(
-    name: string,
-    email: string,
-    password: string,
-  ): Promise<User> {
-    const user = this.usersRepository.create({ name, email, password });
-    return this.usersRepository.save(user);
-  }
-
-  async findAll(): Promise<User[]> {
+  findAll(): Promise<User[]> {
     return this.usersRepository.find();
   }
 
-  async findOne(id: number): Promise<User> {
-    return this.usersRepository.findOne({ where: { id } });
+  findOne(id: string): Promise<User> {
+    return this.usersRepository.findOne(id);
   }
 
-  async deleteUser(id: number): Promise<void> {
+  async create(user: User): Promise<User> {
+    return this.usersRepository.save(user);
+  }
+
+  async update(id: string, user: User): Promise<User> {
+    await this.usersRepository.update(id, user);
+    return this.usersRepository.findOne(id);
+  }
+
+  async remove(id: string): Promise<void> {
     await this.usersRepository.delete(id);
   }
 }
